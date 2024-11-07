@@ -197,6 +197,10 @@ const User = sequelize.define("Users", {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
+    },
+    salesforceid: {
+        type: DataTypes.STRING,
+        defaultValue: null,
     }
 })
 

@@ -4,7 +4,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 const sequelize = new Sequelize(
-    process.env.POSTGRES_URL="postgres://default:NIb4Txkq5KSG@ep-dawn-cake-a4po4xml-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require" ,
+    process.env.POSTGRES_URL,
     {
         host: config.HOST,
         dialect: config.dialect,

@@ -8,6 +8,7 @@ const formController = require('../controller/form.controller')
 
 const express = require('express')
 const imageUploadMiddlware = require('../utils/imageUploadMiddlware')
+const jiraController = require('../controller/jira.controller')
 
 const router = express.Router()
 
@@ -15,6 +16,7 @@ const router = express.Router()
 router.post('/auth/login', authController.login)
 router.post('/auth/register', authController.register)
 router.post('/auth/getMe', authController.getMe)
+router.post('/auth/salesForce', authController.salesforce)
 
 // comment routes
 router.get('/comments/', commentController.getAllComments)
@@ -42,6 +44,10 @@ router.delete('/forms/:id', formController.deleteForm)
 // router.get('/like/', )
 // router.get('/like/', )
 
+// Jira route
+router.get('/jira/:email', jiraController.getTasksByEmail)
+router.post('/jira/', jiraController.createJiraTask)
+
 // tag route
 router.get('/tags/', tagController.getAllTags)
 router.get('/tags/:id', tagController.getTagById)
@@ -56,6 +62,11 @@ router.put('/users/setAdmin/:id', userController.setUserAdmin)
 router.put('/users/blockUser/:id', userController.blockUser)
 router.put('/users/unblockUser/:id', userController.unblockUser)
 router.delete('/users/deleteUser/:id', userController.deleteUser)
+
+// Odoo 
+// router.post('/users/generate-api-token', userController.generateApiToken); // Generate API token route
+// router.get('/users/api-token', userController.getApiToken); // Get API token route
+
 
 
 

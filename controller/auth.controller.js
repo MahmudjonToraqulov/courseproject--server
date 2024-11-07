@@ -2,6 +2,8 @@ const {User} = require("../schema/index");
 const {userDto} = require("../dto/userDto");
 const {hashPassword} = require("../utils/bcryptPassword");
 const {handleLoginErrors} = require("../utils/handleControllers/authUtils");
+const addToSalesForce = require("../utils/salesForce");
+const { addSaleForceIdToUserId } = require("../utils/salesForce");
 
 
 const authController = {
@@ -30,9 +32,21 @@ const authController = {
         }
     },
     getMe: async(req, res) => {
-        const {id} = req.body
-        const user = await User.findByPk(id)
-        res.status(200).json(userDto(user))
+        try {
+            const {id} = req.body
+            const user = await User.findByPk(id)
+            res.status(200).json(userDto(user))
+        }
+        catch(e) {
+            res.status(500).json({ error: e.message })
+        }
+    },
+    salesforce: async (req, res) => {
+        const {userId} = req.body.data
+        let contact = await addToSalesForce(req, res)
+        if (!contact) return;
+        await addSaleForceIdToUserId(userId, contact.id, res)
+        res.status(201).json(contact);
     }
 }
 

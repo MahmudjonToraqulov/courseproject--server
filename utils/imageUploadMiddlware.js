@@ -32,10 +32,9 @@ const imageUploadMiddleware = async (req, res, next) => {
     }
 };
 
-// Export a single middleware combining both multer and Cloudinary
 const imageUploadMiddlware = [
-    upload.single('file'), // Handle file upload with multer
-    imageUploadMiddleware // Handle Cloudinary upload
+    upload.single('file'),
+    imageUploadMiddleware
 ];
 
 module.exports = imageUploadMiddlware;
